@@ -52,13 +52,13 @@ When building a pipeline like this, it's essential to check your work at every s
 - GeoParquet
 
 ## Evaluation Criteria
-[ ] Repo is public on GitHub, URL works in incognito window
+[x] Repo is public on GitHub, URL works in incognito window
 
 [x] README.md follows template structure
 
 [x] What I Learned section is filled with specifics, not generics
 
-[ ] `pipeline.sh` runs end-to-end on fresh clone, no manual
+[x] `pipeline.sh` runs end-to-end on fresh clone, no manual
 
 [x] `pipeline.sh` starts with shebang and `set -euo pipefail`
 
