@@ -100,7 +100,7 @@ fi
 
 echo "[3/4] Decompressing"
 
-if [-f $RAW_CSV]; then
+if [ -f $RAW_CSV ]; then
     # Skip the file if it already exists
     echo "⏭️  CSV already exists: $FILE_NAME"
 else
