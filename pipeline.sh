@@ -22,7 +22,18 @@ YEAR="${1:-2024}"
 # NOAA file naming pattern. The "c{CREATED_DATE}" portion changes when NOAA
 # republishes a year. Look at https://www.ncei.noaa.gov/data/storm-events/files/
 # and update CREATED_DATE for the year you want.
-CREATED_DATE="20260421"
+if [ "$YEAR" -eq 2024 ]; then
+    CREATED_DATE="20260421"
+elif [ "$YEAR" -gt 2024 ]; then
+    echo "You're only allowed to query up to 2024"
+    exit 1
+elif [ "$YEAR" -lt 1950 ]; then
+    echo "NOAA only has data for years 1950-present; try again."
+    exit 1
+else 
+    CREATED_DATE="20260323"
+    echo "Querying for year $YEAR..."
+fi
 
 # BASE_URL="https://www.ncei.noaa.gov/data/storm-events/files"
 BASE_URL="https://www.ncei.noaa.gov/pub/data/swdi/stormevents/csvfiles/"
@@ -94,18 +105,12 @@ fi
 # Step 3: Decompress
 # -----------------------------------------------------------------------------
 
-# Extract: Decompress .gz archive to plain CSV
-gunzip -k "$RAW_GZ" 
-# Convert: Use ogr2ogr to convert CSV into single GeoParquet file with proper geometry and CRS
-# Source: https://www.ncei.noaa.gov/data/storm-events/files/
-
-# Let the user pick a year and created-date string and then run
-
-# Output: Single file at data/processed/storms_{YEAR}.parquet
-# create data if it doesn't exist yet)
-
 echo "[3/4] Decompressing"
+
 # [TODO] Use gunzip to decompress RAW_GZ into RAW_CSV.
+# gunzip -c "$RAW_GZ" > "$RAW_CSV"
+gunzip -k "$RAW_GZ"
+
 # The -k flag keeps the original .gz so the pipeline can rerun.
 # Skip this step if RAW_CSV already exists.
 
@@ -123,6 +128,11 @@ echo "[3/4] Decompressing"
 
 echo "[4/4] Converting to GeoParquet"
 # [TODO] Use ogr2ogr to convert RAW_CSV into a GeoParquet file at OUT_PARQUET.
+
+ogr2ogr -f Parquet "$OUT_PARQUET" "$RAW_CSV" \
+    -oo X_POSSIBLE_NAMES=BEGIN_LON \
+    -oo Y_POSSIBLE_NAMES=BEGIN_LAT \
+    -a_srs EPSG:4326
 #
 # The CSV uses BEGIN_LON / BEGIN_LAT for the storm start point. ogr2ogr can
 # pick those up if you tell it the column names with -oo:

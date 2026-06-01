@@ -5,6 +5,10 @@ converts it to GeoParquet, and lands it ready for analysis in DuckDB,
 GeoPandas, or QGIS.
 
 ## What it does
+# Let the user pick a year and created-date string and then run
+
+# Output: Single file at data/processed/storms_{YEAR}.parquet
+# create data if it doesn't exist yet)
 
 `pipeline.sh` takes a year (default: 2024), pulls the raw `details` file
 from NOAA's public archive, decompresses it, and converts it to a single
