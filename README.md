@@ -24,18 +24,18 @@ connection.
 
 Requires GDAL (for `ogr2ogr`) and standard Unix utilities (`curl`, `gunzip`).
 
-\`\`\`bash
+```bash
 git clone https://github.com/jaanekaraster/a1-noaa-storms-pipeline.git
 cd a1-noaa-storms-pipeline
 chmod +x pipeline.sh
 ./pipeline.sh
-\`\`\`
+```
 
 To run for a specific year:
 
-\`\`\`bash
+```bash
 ./pipeline.sh 2023
-\`\`\`
+```
 
 ## What I learned
 
