@@ -51,25 +51,3 @@ When building a pipeline like this, it's essential to check your work at every s
 * curl
 * GDAL / ogr2ogr
 * GeoParquet
-
-## Evaluation Criteria
-
-[x] Repo is public on GitHub, URL works in incognito window
-
-[x] README.md follows template structure
-
-[x] What I Learned section is filled with specifics, not generics
-
-[x] `pipeline.sh` runs end-to-end on fresh clone, no manual
-
-[x] `pipeline.sh` starts with shebang and `set -euo pipefail`
-
-[x] Script is safe to rerun without breaking (creates dirs with mkdir -p, handles existing files)
-
-[x] `.gitignore` excludes `data/` so no raw downloads end up in the repo
-
-[x] Output GeoParquet opens cleanly in QGIS or DuckDB and has the right CRS
-
-[x] At least one comment in the script explains a non-obvious choice
-
-[x] Commit history is at least 3 commits with reasonable messages
